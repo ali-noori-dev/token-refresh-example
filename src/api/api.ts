@@ -10,7 +10,7 @@ const auth0 = new Auth0Client({
   clientId: process.env.REACT_APP_AUTH0_CLIENT_ID!,
 });
 
-const api: AxiosInstance = axios.create({
+export const api: AxiosInstance = axios.create({
   baseURL: "https://httpbin.org", // Using httpbin.org as the base URL for demo purposes
 });
 
@@ -104,5 +104,3 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export default api;
