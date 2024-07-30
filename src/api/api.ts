@@ -5,9 +5,12 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+
 const auth0 = new Auth0Client({
-  domain: process.env.REACT_APP_AUTH0_DOMAIN!,
-  clientId: process.env.REACT_APP_AUTH0_CLIENT_ID!,
+  domain,
+  clientId,
 });
 
 export const api: AxiosInstance = axios.create({

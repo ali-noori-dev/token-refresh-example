@@ -4,8 +4,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN!;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID!;
+const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+const redirectUri = import.meta.env.VITE_AUTH0_REDIRECT_URI;
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,11 +14,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: redirectUri,
       }}
     >
       <App />
     </Auth0Provider>
-    ,
   </React.StrictMode>
 );
