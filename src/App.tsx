@@ -1,8 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { lazy } from "react";
+import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ProtectedRoute } from "./components";
-import LoginPage from "./pages/LoginPage";
 
 const HomePage = lazy(() => import("./pages/HomePage"));
 
@@ -15,10 +14,11 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute component={HomePage} />} />
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute component={HomePage} />} />
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 };

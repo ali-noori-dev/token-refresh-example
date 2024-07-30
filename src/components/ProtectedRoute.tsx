@@ -1,6 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { ComponentType } from "react";
-import { Navigate } from "react-router-dom";
+import React, { ComponentType, useEffect } from "react";
 
 interface ProtectedRouteProps {
   component: React.LazyExoticComponent<ComponentType>;
@@ -9,7 +8,13 @@ interface ProtectedRouteProps {
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   component: Component,
 }) => {
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
 
-  return isAuthenticated ? <Component /> : <Navigate to="/login" />;
+  useEffect(() => {
+    if (!isAuthenticated && !isLoading) {
+      loginWithRedirect();
+    }
+  }, [isAuthenticated, isLoading, loginWithRedirect]);
+
+  return isAuthenticated ? <Component /> : <div>Loading...</div>;
 };
